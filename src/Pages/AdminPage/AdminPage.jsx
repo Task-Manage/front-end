@@ -1,12 +1,12 @@
 import React from "react";
-import TableTask from "../../Components/TableTask/TableTask";
+import TableComponent from "../../Components/TableComponent/TableComponent";
 import AlertDelete from "../../Components/AlertDelete/AlertDelete";
 
 function AdminPage() {
   const alertDelete = <AlertDelete />;
   return (
     <div>
-      <TableTask alertDelete={alertDelete} />
+      <TableComponent alertDelete={alertDelete} />
     </div>
   );
 }

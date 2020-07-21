@@ -30,12 +30,6 @@ const columns = [
     align: "center",
     minWidth: 170,
   },
-  // {
-  //   id: "act",
-  //   label: "",
-  //   align: "center",
-  //   minWidth: 170,
-  // },
 ];
 
 function createData(task, pic, status) {
@@ -57,7 +51,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableTask(props) {
+export default function TableComponent(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
