@@ -1,16 +1,13 @@
 import React from "react";
 
 import "./App.css";
-// import AdminPage from "./Pages/AdminPage/AdminPage";
-import ModalAdd from "./Components/ModalAdd/ModalAdd";
-
+import Sidebar from "./Components/Sidebar/Sidebar";
 function App() {
-  return (
-    <div className="App">
-      <ModalAdd />
-      {/* <AdminPage /> */}
-    </div>
-  );
+    return (
+        <div className="App">
+            <Sidebar />
+        </div>
+    );
 }
 
 export default App;
