@@ -126,6 +126,9 @@ function Sidebar(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.table}
+        <div style={{ position: "relative", bottom: "30" }}>
+          {props.addButton}
+        </div>
       </main>
     </div>
   );
