@@ -88,7 +88,7 @@ function Sidebar(props) {
             <Menu />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            {props.pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -126,9 +126,7 @@ function Sidebar(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.table}
-        <div style={{ position: "relative", bottom: "30" }}>
-          {props.addButton}
-        </div>
+        <div style={{ margin: "1em" }}>{props.addButton}</div>
       </main>
     </div>
   );

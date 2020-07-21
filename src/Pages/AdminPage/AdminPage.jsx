@@ -5,6 +5,7 @@ import TabTask from "../../Components/TabTask/TabTask";
 import TabEmployees from "../../Components/TabEmployees/TabEmployees";
 
 function AdminPage(props) {
+  const pageTitle = props.pageTitle;
   const addButton = props.addButton;
   const table = props.table;
   const tabTasks = <TabTask />;
@@ -16,6 +17,7 @@ function AdminPage(props) {
         tabTasks={tabTasks}
         table={table}
         addButton={addButton}
+        pageTitle={pageTitle}
       />
     </div>
   );

@@ -25,10 +25,14 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/admin/tasks">
-            <AdminPage table={tableTaskAdmin} addButton={addButton} />
+            <AdminPage
+              table={tableTaskAdmin}
+              addButton={addButton}
+              pageTitle={"Task List"}
+            />
           </Route>
           <Route exact path="/admin/employees">
-            <AdminPage table={tableEmployeeAdmin} />
+            <AdminPage table={tableEmployeeAdmin} pageTitle={"Employee List"} />
           </Route>
           <Route exact path="/user/tasks">
             <UserPage table={tableTaskUser} />
