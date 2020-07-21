@@ -71,10 +71,11 @@ function Sidebar(props) {
             <div className={classes.toolbar} />
             <Divider />
             <List>
-                <PeopleIcon />
+                <PeopleIcon /> <ListItemText primary="Karyawan" />
             </List>
+            <Divider />
             <List>
-                <SupervisedUserCircleIcon />
+                <SupervisedUserCircleIcon /> <ListItemText primary="Admin" />
             </List>
             <Divider />
         </div>
