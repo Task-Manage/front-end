@@ -6,6 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import EditIcon from "@material-ui/icons/Edit";
 // Select
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -35,10 +36,10 @@ export default function FormDialog() {
         },
     }));
     const classes = useStyles();
-    const [age, setAge] = React.useState("");
+    const [status, setStatus] = React.useState("");
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setStatus(event.target.value);
     };
 
     return (
@@ -48,6 +49,7 @@ export default function FormDialog() {
                 color="primary"
                 onClick={handleClickOpen}
             >
+                <EditIcon />
                 Edit
             </Button>
             <Dialog
@@ -67,7 +69,7 @@ export default function FormDialog() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={age}
+                            value={status}
                             onChange={handleChange}
                         >
                             <MenuItem value={10}>Ongoing</MenuItem>
