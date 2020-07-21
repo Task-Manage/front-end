@@ -1,9 +1,15 @@
 import React from "react";
 
-import "./App.css";
+import LoginUser from './Pages/Login/LoginUser'
+import LoginAdmin from './Pages/Login/LoginAdmin'
+import Register from './Pages/Register/Register'
 
 function App() {
-    return <div className="App"></div>;
+    return <div>
+        <Register />
+        <LoginUser />
+        <LoginAdmin />
+    </div>;
 }
 
 export default App;
