@@ -11,8 +11,6 @@ import TableRow from "@material-ui/core/TableRow";
 
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-import AlertDelete from "../AlertDelete/AlertDelete";
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.info.dark,
@@ -59,7 +57,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableTask() {
+export default function TableTask(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -118,7 +116,8 @@ export default function TableTask() {
                       variant="contained"
                       color="primary"
                     >
-                      <AlertDelete />
+                      {props.alertDelete}
+                      {/* <AlertDelete /> */}
                     </ButtonGroup>
                   </TableRow>
                 );
