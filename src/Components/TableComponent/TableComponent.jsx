@@ -110,6 +110,7 @@ export default function TableComponent(props) {
                       variant="contained"
                       color="primary"
                     >
+                      {props.modalEdit}
                       {props.alertDelete}
                       {/* <AlertDelete /> */}
                     </ButtonGroup>
