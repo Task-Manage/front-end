@@ -17,6 +17,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import TableUser from "../TableUser/TableUser";
+// icon
+import PeopleIcon from "@material-ui/icons/People";
+import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 
 const drawerWidth = 240;
 
@@ -68,21 +71,12 @@ function Sidebar(props) {
             <div className={classes.toolbar} />
             <Divider />
             <List>
-                {["Inbox", "Starred", "Send email", "Drafts"].map(
-                    (text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    )
-                )}
+                <PeopleIcon />
+            </List>
+            <List>
+                <SupervisedUserCircleIcon />
             </List>
             <Divider />
-            <List>
-                <h2></h2>
-            </List>
         </div>
     );
 
