@@ -109,10 +109,10 @@ export default function TableComponent(props) {
                       disableElevation
                       variant="contained"
                       color="primary"
+                      style={{ padding: "16px" }}
                     >
                       {props.modalEdit}
                       {props.alertDelete}
-                      {/* <AlertDelete /> */}
                     </ButtonGroup>
                   </TableRow>
                 );
