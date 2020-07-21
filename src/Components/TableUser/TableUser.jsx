@@ -21,8 +21,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const columns = [
-    { id: "task", label: "Task", minWidth: 170 },
-    { id: "pic", label: "PIC", minWidth: 100 },
+    { id: "name", label: "name", minWidth: 170 },
+    { id: "role", label: "role", minWidth: 100 },
     {
         id: "status",
         label: "Status",
@@ -35,8 +35,8 @@ const columns = [
     },
 ];
 
-function createData(task, pic, status, act) {
-    return { task, pic, status, act };
+function createData(name, role, status, act) {
+    return { name, role, status, act };
 }
 
 const rows = [

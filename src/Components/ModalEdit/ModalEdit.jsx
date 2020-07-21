@@ -44,26 +44,25 @@ export default function FormDialog() {
     return (
         <div>
             <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 onClick={handleClickOpen}
             >
-                Open form dialog
+                Edit
             </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit Status</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To subscribe to this website, please enter your email
-                        address here. We will send updates occasionally.
+                        Pilih Status Sesuai keadaanmu saat ini
                     </DialogContentText>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">
-                            Age
+                            Status
                         </InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -71,9 +70,9 @@ export default function FormDialog() {
                             value={age}
                             onChange={handleChange}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={10}>Ongoing</MenuItem>
+                            <MenuItem value={20}>Done</MenuItem>
+                            <MenuItem value={30}>Revisi</MenuItem>
                         </Select>
                     </FormControl>
                 </DialogContent>
@@ -82,7 +81,7 @@ export default function FormDialog() {
                         Cancel
                     </Button>
                     <Button onClick={handleClose} color="primary">
-                        Subscribe
+                        Confirm
                     </Button>
                 </DialogActions>
             </Dialog>
