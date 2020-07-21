@@ -10,6 +10,13 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
@@ -51,6 +58,8 @@ export default function TableTask() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -59,6 +68,22 @@ export default function TableTask() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleClickOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
   };
 
   return (
@@ -93,12 +118,76 @@ export default function TableTask() {
                             variant="contained"
                             color="primary"
                           >
-                            <Button>
+                            <Button onClick={handleClickOpenEdit}>
                               <EditIcon /> Edit
                             </Button>
-                            <Button color="secondary">
+                            <Dialog
+                              open={openEdit}
+                              onClose={handleCloseEdit}
+                              aria-labelledby="form-dialog-title"
+                            >
+                              <DialogTitle id="form-dialog-title">
+                                Subscribe
+                              </DialogTitle>
+                              <DialogContent>
+                                <DialogContentText>
+                                  Edit status
+                                </DialogContentText>
+                                <TextField
+                                  autoFocus
+                                  margin="dense"
+                                  id="status"
+                                  label="Status"
+                                  type="text"
+                                  fullWidth
+                                />
+                              </DialogContent>
+                              <DialogActions>
+                                <Button
+                                  onClick={handleCloseEdit}
+                                  color="primary"
+                                >
+                                  Cancel
+                                </Button>
+                                <Button
+                                  onClick={handleCloseEdit}
+                                  color="primary"
+                                >
+                                  Save Change
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
+                            <Button
+                              color="secondary"
+                              onClick={handleClickOpenDelete}
+                            >
                               <DeleteOutlineIcon /> Delete
                             </Button>
+                            <Dialog
+                              open={openDelete}
+                              onClose={handleCloseDelete}
+                              aria-labelledby="alert-dialog-title"
+                              aria-describedby="alert-dialog-description"
+                            >
+                              <DialogTitle id="alert-dialog-title">
+                                {"Are You Sure Want to Delete?"}
+                              </DialogTitle>
+                              <DialogActions>
+                                <Button
+                                  onClick={handleCloseDelete}
+                                  color="primary"
+                                >
+                                  Cancel
+                                </Button>
+                                <Button
+                                  onClick={handleCloseDelete}
+                                  color="primary"
+                                  autoFocus
+                                >
+                                  Yes, Delete It
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
                           </ButtonGroup>
                         );
                       } else {
