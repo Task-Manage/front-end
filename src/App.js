@@ -1,12 +1,12 @@
 import React from "react";
 
 import "./App.css";
-import TableTask from "./Components/TableTask/TableTask";
+import AdminPage from "./Pages/AdminPage/AdminPage";
 
 function App() {
   return (
     <div className="App">
-      <TableTask />
+      <AdminPage />
     </div>
   );
 }
