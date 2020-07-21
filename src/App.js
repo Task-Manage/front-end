@@ -1,13 +1,17 @@
 import React from "react";
 
 import "./App.css";
-import Sidebar from "./Components/Sidebar/Sidebar";
+
+// import UserPage from "./Pages/UserPage/UserPage";
+import AdminPage from "./Pages/AdminPage/AdminPage";
+
 function App() {
-    return (
-        <div className="App">
-            <Sidebar />
-        </div>
-    );
+  return (
+    <div className="App">
+      {/* <UserPage /> */}
+      <AdminPage />
+    </div>
+  );
 }
 
 export default App;
