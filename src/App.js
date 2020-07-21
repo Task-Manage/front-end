@@ -9,16 +9,43 @@ import AlertDelete from "./Components/AlertDelete/AlertDelete";
 import ModalEdit from "./Components/ModalEdit/ModalEdit";
 import ModalAdd from "./Components/ModalAdd/ModalAdd";
 import AdminPage from "./Pages/AdminPage/AdminPage";
-import TableUser from "./Components/TableUser/TableUser";
+// import TableUser from "./Components/TableUser/TableUser";
 
 function App() {
   const alertDelete = <AlertDelete />;
   const modalEdit = <ModalEdit />;
+  const taskHead = [
+    { id: "task", label: "Task", minWidth: 170 },
+    { id: "pic", label: "PIC", minWidth: 100 },
+    {
+      id: "status",
+      label: "Status",
+      align: "center",
+      minWidth: 170,
+    },
+  ];
   const tableTaskAdmin = (
-    <TableComponent modalEdit={modalEdit} alertDelete={alertDelete} />
+    <TableComponent
+      modalEdit={modalEdit}
+      alertDelete={alertDelete}
+      columns={taskHead}
+    />
   );
-  const tableTaskUser = <TableComponent modalEdit={modalEdit} />;
-  const tableEmployeeAdmin = <TableUser />;
+  const employeeHead = [
+    { id: "id", label: "ID", minWidth: 170 },
+    { id: "name", label: "Name", minWidth: 100 },
+    { id: "email", label: "Email", minWidth: 150 },
+  ];
+  const tableTaskUser = (
+    <TableComponent modalEdit={modalEdit} columns={taskHead} />
+  );
+  const tableEmployeeAdmin = (
+    <TableComponent
+      modalEdit={modalEdit}
+      alertDelete={alertDelete}
+      columns={employeeHead}
+    />
+  );
   const addButton = <ModalAdd />;
   return (
     <div className="App">

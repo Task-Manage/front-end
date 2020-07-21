@@ -21,17 +21,6 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const columns = [
-  { id: "task", label: "Task", minWidth: 170 },
-  { id: "pic", label: "PIC", minWidth: 100 },
-  {
-    id: "status",
-    label: "Status",
-    align: "center",
-    minWidth: 170,
-  },
-];
-
 function createData(task, pic, status) {
   return { task, pic, status };
 }
@@ -52,6 +41,7 @@ const useStyles = makeStyles({
 });
 
 export default function TableComponent(props) {
+  const columns = props.columns;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
