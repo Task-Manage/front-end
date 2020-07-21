@@ -82,7 +82,7 @@ else {history.push('/userPage');}
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in Admin
+          Sign in
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
