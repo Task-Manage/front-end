@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import ModalEdit from "../ModalEdit/ModalEdit";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -75,7 +76,7 @@ export default function TableUser() {
                                 {row.carbs}
                             </StyledTableCell>
                             <StyledTableCell align="right">
-                                {row.protein}
+                                <ModalEdit />
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
