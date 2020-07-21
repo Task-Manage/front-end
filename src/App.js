@@ -1,12 +1,14 @@
 import React from "react";
 
 import "./App.css";
-import AdminPage from "./Pages/AdminPage/AdminPage";
+// import AdminPage from "./Pages/AdminPage/AdminPage";
+import ModalAdd from "./Components/ModalAdd/ModalAdd";
 
 function App() {
   return (
     <div className="App">
-      <AdminPage />
+      <ModalAdd />
+      {/* <AdminPage /> */}
     </div>
   );
 }
