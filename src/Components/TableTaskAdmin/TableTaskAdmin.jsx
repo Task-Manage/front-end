@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -30,10 +30,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableComponent(props) {
+export default function TableTaskAdmin(props) {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [task, setTask] = useState(null);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -44,79 +45,68 @@ export default function TableComponent(props) {
     setPage(0);
   };
 
-  const columns = [
-    { id: "task", label: "Task", minWidth: 170 },
-    { id: "pic", label: "PIC", minWidth: 100 },
-    {
-      id: "status",
-      label: "Status",
-      align: "center",
-      minWidth: 170,
-    },
-  ];
+  useEffect(() => {
+    const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks`;
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
 
-  function createData(task, pic, status) {
-    return { task, pic, status };
-  }
-
-  const rows = [
-    createData("Table users", "Agus", "Ongoing"),
-    createData("Login-Register", "Ian", "Ongoing"),
-    createData("Table tasks", "Resha", "Ongoing"),
-  ];
-
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((results) => setTask(results));
+  }, []);
+  console.log(task);
+  const rows = [];
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <StyledTableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </StyledTableCell>
-              ))}
-              <StyledTableCell
-                align={columns.align}
-                style={{ minWidth: columns.minWidth }}
-              ></StyledTableCell>
+              <StyledTableCell style={{ minWidth: "170" }}>ID</StyledTableCell>
+              <StyledTableCell style={{ minWidth: "170" }}>
+                Task
+              </StyledTableCell>
+              <StyledTableCell style={{ minWidth: "100" }}>PIC</StyledTableCell>
+              <StyledTableCell style={{ minWidth: "170" }}>
+                Status
+              </StyledTableCell>
+              <StyledTableCell style={{ minWidth: "180" }}></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={columns.id}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                    <ButtonGroup
-                      disableElevation
-                      variant="contained"
-                      color="primary"
-                      style={{ padding: "16px" }}
+            {task !== null &&
+              task
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={item._id}
                     >
-                      {props.modalEdit}
-                      {props.alertDelete}
-                    </ButtonGroup>
-                  </TableRow>
-                );
-              })}
+                      <TableCell>{item._id}</TableCell>
+                      <TableCell>{item.assignment}</TableCell>
+                      <TableCell>{item.assignee.name}</TableCell>
+                      <TableCell>{item.status}</TableCell>
+                      <ButtonGroup
+                        disableElevation
+                        variant="contained"
+                        color="primary"
+                        style={{ padding: "16px" }}
+                      >
+                        {props.modalEdit}
+                        {props.alertDelete}
+                      </ButtonGroup>
+                    </TableRow>
+                  );
+                })}
           </TableBody>
         </Table>
       </TableContainer>

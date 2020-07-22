@@ -30,10 +30,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableComponent(props) {
+export default function TableEmployeeAdmin(props) {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [employeeData, setEmployeeData] = useState(null);
 
   const handleChangePage = (event, newPage) => {
