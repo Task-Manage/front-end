@@ -97,6 +97,7 @@ export default function ModalEditTaskAdmin(props) {
                                 value={data.status}
                                 onChange={handleChange}
                             >
+                                <MenuItem value={'start'}>Start</MenuItem>
                                 <MenuItem value={'in progress'}>
                                     In Progress
                                 </MenuItem>
