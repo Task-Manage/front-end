@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Dialog, DialogTitle, DialogActions } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
-function AlertDelete() {
+function AlertDelete(props) {
   const [openDelete, setOpenDelete] = React.useState(false);
 
   const handleClickOpenDelete = () => {
