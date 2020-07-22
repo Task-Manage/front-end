@@ -9,21 +9,26 @@ import {
 import "./App.css";
 
 import AlertDelete from "./Components/AlertDelete/AlertDelete";
-import ModalEdit from "./Components/ModalEdit/ModalEdit";
 import ModalAdd from "./Components/ModalAdd/ModalAdd";
 import AdminPage from "./Pages/AdminPage/AdminPage";
 import TableTaskAdmin from "./Components/TableTaskAdmin/TableTaskAdmin";
 import TableEmployeeAdmin from "./Components/TableEmployeeAdmin/TableEmployeeAdmin";
 import UserPage from "./Pages/UserPage/UserPage";
+import ModalEditEmployeeAdmin from "./Components/ModalEditEmployeeAdmin/ModalEditEmployeeAdmin";
+import ModalEditTaskAdmin from "./Components/ModalEditTaskAdmin/ModalEditTaskAdmin";
 
 function App() {
   const alertDelete = <AlertDelete />;
-  const modalEdit = <ModalEdit />;
+  const modalEditEmployeeAdmin = <ModalEditEmployeeAdmin />;
+  const modalEditTaskAdmin = <ModalEditTaskAdmin />;
   const tableTaskAdmin = (
-    <TableTaskAdmin modalEdit={modalEdit} alertDelete={alertDelete} />
+    <TableTaskAdmin modalEdit={modalEditTaskAdmin} alertDelete={alertDelete} />
   );
   const tableEmployeeAdmin = (
-    <TableEmployeeAdmin modalEdit={modalEdit} alertDelete={alertDelete} />
+    <TableEmployeeAdmin
+      modalEdit={modalEditEmployeeAdmin}
+      alertDelete={alertDelete}
+    />
   );
   const addButton = <ModalAdd />;
   return (
