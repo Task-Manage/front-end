@@ -6,7 +6,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import FormControl from "@material-ui/core/FormControl";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,8 +46,8 @@ export default function Login() {
       [event.target.name]: event.target.value,
     });
   }
-  
-async function handleSubmit(event) {
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const options = {
@@ -59,21 +58,22 @@ async function handleSubmit(event) {
       body: JSON.stringify(userData),
     };
 
-        const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/login`,
-            options
-        );
-        const result = await response.json();
+    const response = await fetch(
+      `https://task-manage-adm.herokuapp.com/api/users/login`,
+      options
+    );
+    const result = await response.json();
+    console.log(result);
 
-        localStorage.setItem('user', result.token);
+    localStorage.setItem("user", result.token);
 
-        if (result.role === 'admin') {
-            history.push('/admin/employees');
-        } else {
-            history.push('/user');
-        }
-}
-  
+    if (result.role === "admin") {
+      history.push("/admin/employees");
+    } else {
+      history.push("/user");
+    }
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -84,11 +84,7 @@ async function handleSubmit(event) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <FormControl
-          onSubmit={handleSubmit}
-          className={classes.form}
-          noValidate
-        >
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -133,7 +129,7 @@ async function handleSubmit(event) {
               </Link>
             </Grid>
           </Grid>
-        </FormControl>
+        </form>
       </div>
     </Container>
   );
