@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -34,6 +34,7 @@ export default function TableComponent(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [employeeData, setEmployeeData] = useState(null);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -44,14 +45,27 @@ export default function TableComponent(props) {
     setPage(0);
   };
 
-  function createData(id, name, email) {
-    return { id, name, email };
-  }
+  useEffect(() => {
+    const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/getAllUserAdminPage`;
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
 
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((results) => setEmployeeData(results.result));
+  }, []);
+
+  console.log(employeeData);
   const rows = [
-    createData("Table users", "Agus", "Ongoing"),
-    createData("Login-Register", "Ian", "Ongoing"),
-    createData("Table tasks", "Resha", "Ongoing"),
+    // createData("Table users", "Agus", "Ongoing"),
+    // createData("Login-Register", "Ian", "Ongoing"),
+    // createData("Table tasks", "Resha", "Ongoing"),
   ];
 
   return (
@@ -71,36 +85,27 @@ export default function TableComponent(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={columns.id}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                    <ButtonGroup
-                      disableElevation
-                      variant="contained"
-                      color="primary"
-                      style={{ padding: "16px" }}
-                    >
-                      {props.modalEdit}
-                      {props.alertDelete}
-                    </ButtonGroup>
-                  </TableRow>
-                );
-              })} */}
+            {employeeData !== null &&
+              employeeData
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((employee) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                      <TableCell>{employee._id}</TableCell>
+                      <TableCell>{employee.name}</TableCell>
+                      <TableCell>{employee.email}</TableCell>
+                      <ButtonGroup
+                        disableElevation
+                        variant="contained"
+                        color="primary"
+                        style={{ padding: "16px" }}
+                      >
+                        {props.modalEdit}
+                        {props.alertDelete}
+                      </ButtonGroup>
+                    </TableRow>
+                  );
+                })}
           </TableBody>
         </Table>
       </TableContainer>
