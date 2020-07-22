@@ -4,17 +4,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
+  TextField,
   DialogTitle,
-  InputLabel,
-  MenuItem,
   FormControl,
-  Select,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function FormDialog() {
+export default function ModalEditEmployeeAdmin() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -35,11 +32,6 @@ export default function FormDialog() {
     },
   }));
   const classes = useStyles();
-  const [status, setStatus] = React.useState("todo");
-
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
 
   return (
     <div>
@@ -52,23 +44,35 @@ export default function FormDialog() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Edit Status</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Employee</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Pilih Status Sesuai keadaanmu saat ini
-          </DialogContentText>
           <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              onChange={handleChange}
-            >
-              <MenuItem value={"todo"}>Todo</MenuItem>
-              <MenuItem value={"ongoing"}>Ongoing</MenuItem>
-              <MenuItem value={"done"}>Done</MenuItem>
-            </Select>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="id"
+              label="ID"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Name"
+              placeholder="New Employee Name"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              label="Email"
+              type="text"
+              placeholder="New Employee Email"
+              fullWidth
+            />
           </FormControl>
         </DialogContent>
         <DialogActions>
