@@ -44,12 +44,6 @@ export default function TableComponent(props) {
     setPage(0);
   };
 
-  const columns = [
-    { id: "id", label: "ID", minWidth: 170 },
-    { id: "name", label: "Name", minWidth: 100 },
-    { id: "email", label: "Email", minWidth: 170 },
-  ];
-
   function createData(id, name, email) {
     return { id, name, email };
   }
@@ -66,23 +60,18 @@ export default function TableComponent(props) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <StyledTableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </StyledTableCell>
-              ))}
-              <StyledTableCell
-                align={columns.align}
-                style={{ minWidth: columns.minWidth }}
-              ></StyledTableCell>
+              <StyledTableCell style={{ minWidth: "170" }}>ID</StyledTableCell>
+              <StyledTableCell style={{ minWidth: "100" }}>
+                Name
+              </StyledTableCell>
+              <StyledTableCell style={{ minWidth: "170" }}>
+                Email
+              </StyledTableCell>
+              <StyledTableCell style={{ minWidth: "180" }}></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {/* {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -111,7 +100,7 @@ export default function TableComponent(props) {
                     </ButtonGroup>
                   </TableRow>
                 );
-              })}
+              })} */}
           </TableBody>
         </Table>
       </TableContainer>

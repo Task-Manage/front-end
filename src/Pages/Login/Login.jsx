@@ -64,10 +64,13 @@ export default function Login() {
     );
     const result = await response.json();
     console.log(result);
+    const userLogin = {
+      token: result.token,
+      userData: result.userData,
+    };
+    localStorage.setItem("user", JSON.stringify(userLogin));
 
-    localStorage.setItem("user", result.token);
-
-    if (result.role === "admin") {
+    if (result.userData.role === "admin") {
       history.push("/admin/employees");
     } else {
       history.push("/user");
