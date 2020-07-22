@@ -65,7 +65,7 @@ export default function TableTaskAdmin(props) {
 
         fetch(url, options)
             .then((response) => response.json())
-            .then((results) => setTaskUser(results));
+            .then((results) => setTaskUser(results.tasks));
     }, []);
     console.log(taskUser);
     const rows = [];
@@ -82,11 +82,9 @@ export default function TableTaskAdmin(props) {
                                 Task
                             </StyledTableCell>
                             <StyledTableCell style={{ minWidth: "100" }}>
-                                PIC
-                            </StyledTableCell>
-                            <StyledTableCell style={{ minWidth: "170" }}>
                                 Status
                             </StyledTableCell>
+
                             <StyledTableCell
                                 style={{ minWidth: "180" }}
                             ></StyledTableCell>
@@ -105,13 +103,17 @@ export default function TableTaskAdmin(props) {
                                             hover
                                             role="checkbox"
                                             tabIndex={-1}
-                                            key={item.id}
+                                            key={item.assignee}
                                         >
-                                            <TableCell>{item.id}</TableCell>
-                                            <TableCell>{item.name}</TableCell>
-                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>
+                                                {item.assignee}
+                                            </TableCell>
+                                            <TableCell>
+                                                {item.assignment}
+                                            </TableCell>
+
                                             <TableCell>{item.status}</TableCell>
-                                            {/* <ButtonGroup
+                                            <ButtonGroup
                                                 disableElevation
                                                 variant="contained"
                                                 color="primary"
@@ -125,10 +127,7 @@ export default function TableTaskAdmin(props) {
                                                     assignment={item.assignment}
                                                     status={item.status}
                                                 />
-                                                <AlertDelete
-                                                    taskId={item._id}
-                                                />
-                                            </ButtonGroup> */}
+                                            </ButtonGroup>
                                         </TableRow>
                                     );
                                 })}
