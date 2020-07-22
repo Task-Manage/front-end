@@ -10,28 +10,15 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import PrivateRoute from "./Helpers/PrivateRoute";
 
-import AlertDelete from "./Components/AlertDelete/AlertDelete";
 import ModalAdd from "./Components/ModalAdd/ModalAdd";
 import AdminPage from "./Pages/AdminPage/AdminPage";
 import TableTaskAdmin from "./Components/TableTaskAdmin/TableTaskAdmin";
 import TableEmployeeAdmin from "./Components/TableEmployeeAdmin/TableEmployeeAdmin";
 import UserPage from "./Pages/UserPage/UserPage";
-import ModalEditEmployeeAdmin from "./Components/ModalEditEmployeeAdmin/ModalEditEmployeeAdmin";
-import ModalEditTaskAdmin from "./Components/ModalEditTaskAdmin/ModalEditTaskAdmin";
 
 function App() {
-  const alertDelete = <AlertDelete />;
-  const modalEditEmployeeAdmin = <ModalEditEmployeeAdmin />;
-  const modalEditTaskAdmin = <ModalEditTaskAdmin />;
-  const tableTaskAdmin = (
-    <TableTaskAdmin modalEdit={modalEditTaskAdmin} alertDelete={alertDelete} />
-  );
-  const tableEmployeeAdmin = (
-    <TableEmployeeAdmin
-      modalEdit={modalEditEmployeeAdmin}
-      alertDelete={alertDelete}
-    />
-  );
+  const tableTaskAdmin = <TableTaskAdmin />;
+  const tableEmployeeAdmin = <TableEmployeeAdmin />;
   const addButton = <ModalAdd />;
   return (
     <div className="App">

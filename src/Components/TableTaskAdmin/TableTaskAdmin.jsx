@@ -11,6 +11,9 @@ import TableRow from "@material-ui/core/TableRow";
 
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
+import ModalEditTaskAdmin from "../ModalEditTaskAdmin/ModalEditTaskAdmin";
+import AlertDelete from "../AlertDelete/AlertDelete";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.info.dark,
@@ -101,8 +104,13 @@ export default function TableTaskAdmin(props) {
                         color="primary"
                         style={{ padding: "16px" }}
                       >
-                        {props.modalEdit}
-                        {props.alertDelete}
+                        <ModalEditTaskAdmin
+                          taskId={item._id}
+                          assigneeId={item.assignee._id}
+                          assignment={item.assignment}
+                          status={item.status}
+                        />
+                        <AlertDelete taskId={item._id} />
                       </ButtonGroup>
                     </TableRow>
                   );

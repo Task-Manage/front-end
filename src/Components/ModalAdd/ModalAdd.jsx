@@ -53,8 +53,6 @@ export default function FormDialog() {
             .then((results) => setEmployee(results.result));
     }, []);
 
-    console.log(employee);
-
     const handleChange = (event) => {
         setAssignment({
             ...assignment,
