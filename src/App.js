@@ -6,7 +6,9 @@ import {
   // Redirect,
 } from "react-router-dom";
 
-import "./App.css";
+import LoginUser from './Pages/Login/LoginUser'
+import LoginAdmin from './Pages/Login/LoginAdmin'
+import Register from './Pages/Register/Register'
 
 import AlertDelete from "./Components/AlertDelete/AlertDelete";
 import ModalEdit from "./Components/ModalEdit/ModalEdit";
