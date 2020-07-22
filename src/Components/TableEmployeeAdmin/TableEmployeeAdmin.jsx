@@ -91,16 +91,7 @@ export default function TableEmployeeAdmin(props) {
                       <TableCell>{employee._id}</TableCell>
                       <TableCell>{employee.name}</TableCell>
                       <TableCell>{employee.email}</TableCell>
-                      <AlertDelete />
-                      {/* <ButtonGroup
-                        disableElevation
-                        variant="contained"
-                        color="primary"
-                        style={{ padding: "16px" }}
-                      >
-                        {props.modalEdit}
-                        {props.alertDelete}
-                      </ButtonGroup> */}
+                      <AlertDelete id={employee._id} />
                     </TableRow>
                   );
                 })}

@@ -5,7 +5,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 function AlertDelete(props) {
   const [openDelete, setOpenDelete] = React.useState(false);
-
+  const id = props.id;
   const handleClickOpenDelete = () => {
     setOpenDelete(true);
   };
