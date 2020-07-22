@@ -114,9 +114,7 @@ export default function TableTaskAdmin(props) {
                                             <TableCell>{item.status}</TableCell>
 
                                             <ModalEditUser
-                                                taskId={item._id}
-                                                assigneeId={item.assignee._id}
-                                                assignment={item.assignment}
+                                                userId={item.assignee}
                                                 status={item.status}
                                             />
                                         </TableRow>
