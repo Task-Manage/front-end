@@ -17,15 +17,11 @@ import TableTaskAdmin from "./Components/TableTaskAdmin/TableTaskAdmin";
 import TableEmployeeAdmin from "./Components/TableEmployeeAdmin/TableEmployeeAdmin";
 import UserPage from "./Pages/UserPage/UserPage";
 import ModalEditEmployeeAdmin from "./Components/ModalEditEmployeeAdmin/ModalEditEmployeeAdmin";
-import ModalEditTaskAdmin from "./Components/ModalEditTaskAdmin/ModalEditTaskAdmin";
 
 function App() {
   const alertDelete = <AlertDelete />;
   const modalEditEmployeeAdmin = <ModalEditEmployeeAdmin />;
-  const modalEditTaskAdmin = <ModalEditTaskAdmin />;
-  const tableTaskAdmin = (
-    <TableTaskAdmin modalEdit={modalEditTaskAdmin} alertDelete={alertDelete} />
-  );
+  const tableTaskAdmin = <TableTaskAdmin />;
   const tableEmployeeAdmin = (
     <TableEmployeeAdmin
       modalEdit={modalEditEmployeeAdmin}
