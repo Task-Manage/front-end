@@ -126,7 +126,7 @@ function Sidebar(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.table}
-        <div style={{ margin: "1em" }}>{props.addButton}</div>
+        <div style={{ textAlign: "center" }}>{props.addButton}</div>
       </main>
     </div>
   );

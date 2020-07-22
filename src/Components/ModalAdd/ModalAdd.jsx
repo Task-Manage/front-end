@@ -45,7 +45,12 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        onClick={handleClickOpen}
+        style={{ margin: "1em" }}
+      >
         <Add />
       </Fab>
       <Dialog
