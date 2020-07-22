@@ -102,11 +102,9 @@ export default function TableTaskAdmin(props) {
                                             hover
                                             role="checkbox"
                                             tabIndex={-1}
-                                            key={item.assignee}
+                                            key={item._id}
                                         >
-                                            <TableCell>
-                                                {item.assignee}
-                                            </TableCell>
+                                            <TableCell>{item._id}</TableCell>
                                             <TableCell>
                                                 {item.assignment}
                                             </TableCell>
@@ -114,7 +112,7 @@ export default function TableTaskAdmin(props) {
                                             <TableCell>{item.status}</TableCell>
 
                                             <ModalEditUser
-                                                userId={item.assignee}
+                                                userId={item._id}
                                                 status={item.status}
                                             />
                                         </TableRow>
