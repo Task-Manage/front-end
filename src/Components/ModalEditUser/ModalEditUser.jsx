@@ -34,7 +34,7 @@ export default function ModalEditUser() {
     },
   }));
   const classes = useStyles();
-  const [status, setStatus] = React.useState("todo");
+  const [status, setStatus] = React.useState("start");
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -61,9 +61,8 @@ export default function ModalEditUser() {
               value={status}
               onChange={handleChange}
             >
-              <MenuItem value={"todo"}>Todo</MenuItem>
-              <MenuItem value={"ongoing"}>Ongoing</MenuItem>
-              <MenuItem value={"done"}>Done</MenuItem>
+              <MenuItem value={"in progress"}>In Progress</MenuItem>
+              <MenuItem value={"need review"}>Need Review</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>

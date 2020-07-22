@@ -80,8 +80,9 @@ export default function ModalEditTaskAdmin() {
               value={status}
               onChange={handleChange}
             >
-              <MenuItem value={"todo"}>Todo</MenuItem>
-              <MenuItem value={"ongoing"}>Ongoing</MenuItem>
+              <MenuItem value={"start"}>Start</MenuItem>
+              <MenuItem value={"in progress"}>In Progress</MenuItem>
+              <MenuItem value={"need review"}>Need Review</MenuItem>
               <MenuItem value={"done"}>Done</MenuItem>
             </Select>
           </FormControl>
