@@ -109,10 +109,12 @@ export default function TableEmployeeAdmin(props) {
                                             <TableCell>
                                                 {employee.email}
                                             </TableCell>
-                                            <AlertDelete
-                                                id={employee._id}
-                                                url={urlDelete}
-                                            />
+                                            {employee.tasks.length === 0 && (
+                                                <AlertDelete
+                                                    id={employee._id}
+                                                    url={urlDelete}
+                                                />
+                                            )}
                                         </TableRow>
                                     );
                                 })}
