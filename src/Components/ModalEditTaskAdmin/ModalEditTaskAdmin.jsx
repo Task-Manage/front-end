@@ -119,7 +119,7 @@ export default function ModalEditTaskAdmin(props) {
                                 <MenuItem value={'need review'}>
                                     Need Review
                                 </MenuItem>
-                                <MenuItem value={'finish'}>Finish</MenuItem>
+                                <MenuItem value={'done'}>Done</MenuItem>
                             </Select>
                         </FormControl>
                     </form>
