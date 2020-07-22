@@ -9,7 +9,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
-import ButtonGroup from "@material-ui/core/ButtonGroup";
+// import ButtonGroup from "@material-ui/core/ButtonGroup";
+import AlertDelete from "../AlertDelete/AlertDelete";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -62,11 +63,7 @@ export default function TableEmployeeAdmin(props) {
   }, []);
 
   console.log(employeeData);
-  const rows = [
-    // createData("Table users", "Agus", "Ongoing"),
-    // createData("Login-Register", "Ian", "Ongoing"),
-    // createData("Table tasks", "Resha", "Ongoing"),
-  ];
+  const rows = [];
 
   return (
     <Paper className={classes.root}>
@@ -94,7 +91,8 @@ export default function TableEmployeeAdmin(props) {
                       <TableCell>{employee._id}</TableCell>
                       <TableCell>{employee.name}</TableCell>
                       <TableCell>{employee.email}</TableCell>
-                      <ButtonGroup
+                      <AlertDelete />
+                      {/* <ButtonGroup
                         disableElevation
                         variant="contained"
                         color="primary"
@@ -102,7 +100,7 @@ export default function TableEmployeeAdmin(props) {
                       >
                         {props.modalEdit}
                         {props.alertDelete}
-                      </ButtonGroup>
+                      </ButtonGroup> */}
                     </TableRow>
                   );
                 })}
