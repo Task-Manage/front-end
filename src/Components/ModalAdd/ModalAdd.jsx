@@ -1,108 +1,156 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {
-  Button,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Fab,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-} from "@material-ui/core";
+    Button,
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Fab,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    Select,
+} from '@material-ui/core';
 // import DialogContentText from "@material-ui/core/DialogContentText";
-import Add from "@material-ui/icons/Add";
-import { makeStyles } from "@material-ui/core/styles";
+import Add from '@material-ui/icons/Add';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
 }));
 
 export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
-  const classes = useStyles();
-  const [status, setStatus] = React.useState("todo");
+    const [open, setOpen] = useState(false);
+    const classes = useStyles();
+    // const [assignee, setAssignee] = useState('');
+    const [employee, setEmployee] = useState([]);
+    const [assignment, setAssignment] = useState({
+        assignment: '',
+        assignee: '',
+    });
 
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/getAllUserAdminPage`;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+            },
+        };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((results) => setEmployee(results.result));
+    }, []);
 
-  return (
-    <div>
-      <Fab
-        color="primary"
-        aria-label="add"
-        onClick={handleClickOpen}
-        style={{ margin: "1em" }}
-      >
-        <Add />
-      </Fab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">
-          Fill form to create a new task
-        </DialogTitle>
-        <DialogContent>
-          <FormControl className={classes.formControl}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="task"
-              label="Task"
-              placeholder="Task Name"
-              type="text"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="pic"
-              label="PIC"
-              type="text"
-              placeholder="Assign PIC"
-              fullWidth
-            />
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              onChange={handleChange}
+    const handleChange = (event) => {
+        setAssignment({
+            ...assignment,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setAssignment({
+            assignment: '',
+            assignee: '',
+        });
+    };
+
+    const handleConfirm = () => {
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks`;
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(assignment),
+        };
+
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((result) => alert(result.message))
+            .catch((error) => console.error(error));
+
+        setOpen(false);
+    };
+
+    return (
+        <div>
+            <Fab color='primary' aria-label='add' onClick={handleClickOpen}>
+                <Add />
+            </Fab>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby='form-dialog-title'
             >
-              <MenuItem value={"todo"}>Todo</MenuItem>
-              <MenuItem value={"ongoing"}>Ongoing</MenuItem>
-              <MenuItem value={"done"}>Done</MenuItem>
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Create
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+                <DialogTitle id='form-dialog-title'>
+                    Fill form to create a new task
+                </DialogTitle>
+                <DialogContent>
+                    <form className={classes.formControl}>
+                        <TextField
+                            autoFocus
+                            margin='dense'
+                            id='assignment'
+                            label='Assignment'
+                            placeholder='Assignment Description'
+                            type='text'
+                            fullWidth
+                            name='assignment'
+                            onChange={handleChange}
+                            value={assignment.assignment}
+                        />
+                        {/* <InputLabel id='demo-simple-select-label'>
+                            Person
+                        </InputLabel> */}
+                        <Select
+                            labelId='demo-simple-select-label'
+                            id='demo-simple-select'
+                            value={assignment.assignee}
+                            onChange={handleChange}
+                            name='assignee'
+                            placeholder='Assignee'
+                        >
+                            {employee.map((person) => (
+                                <MenuItem key={person._id} value={person._id}>
+                                    {person.name}
+                                </MenuItem>
+                            ))}
+
+                            {/* <MenuItem value={'ongoing'}>Ongoing</MenuItem>
+                            <MenuItem value={'done'}>Done</MenuItem> */}
+                        </Select>
+                    </form>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color='primary'>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleConfirm} color='primary'>
+                        Create
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 }
