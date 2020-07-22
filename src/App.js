@@ -6,9 +6,8 @@ import {
   // Redirect,
 } from "react-router-dom";
 
-import LoginUser from './Pages/Login/LoginUser'
-import LoginAdmin from './Pages/Login/LoginAdmin'
-import Register from './Pages/Register/Register'
+import Login from "./Pages/Login/Login";
+// import Register from "./Pages/Register/Register";
 
 import AlertDelete from "./Components/AlertDelete/AlertDelete";
 import ModalAdd from "./Components/ModalAdd/ModalAdd";
@@ -48,11 +47,11 @@ function App() {
           <Route exact path="/admin/employees">
             <AdminPage table={tableEmployeeAdmin} pageTitle={"Employee List"} />
           </Route>
-          <Route exact path="/user/tasks">
+          <Route exact path="/user">
             <UserPage />
           </Route>
           <Route path="*">
-            <AdminPage table={tableEmployeeAdmin} />
+            <Login />
           </Route>
         </Switch>
       </Router>
