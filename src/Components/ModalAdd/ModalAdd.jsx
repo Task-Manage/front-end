@@ -57,26 +57,25 @@ export default function FormDialog() {
           Fill form to create a new task
         </DialogTitle>
         <DialogContent>
-          {/* <DialogContentText></DialogContentText> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="task"
-            label="Task"
-            placeholder="Task Name"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="pic"
-            label="PIC"
-            type="text"
-            placeholder="Assign PIC"
-            fullWidth
-          />
           <FormControl className={classes.formControl}>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="task"
+              label="Task"
+              placeholder="Task Name"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="pic"
+              label="PIC"
+              type="text"
+              placeholder="Assign PIC"
+              fullWidth
+            />
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
               labelId="demo-simple-select-label"
