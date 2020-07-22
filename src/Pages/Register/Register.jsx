@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Copyright from '../../Components/Copyright/Copyright';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +40,7 @@ export default function SignUp() {
         password: '',
     });
     const classes = useStyles();
+    const history = useHistory();
 
     const handleChange = (event) => {
         setUserData({
@@ -65,7 +66,10 @@ export default function SignUp() {
             const response = await fetch(url, options);
             const result = await response.json();
 
-            alert(result.message);
+            if (result) {
+                alert(result.message);
+                history.push('/');
+            }
         } catch (error) {
             console.error(error);
         }
