@@ -7,9 +7,7 @@ import {
     DialogContent,
     DialogTitle,
     Fab,
-    InputLabel,
     MenuItem,
-    FormControl,
     Select,
 } from '@material-ui/core';
 // import DialogContentText from "@material-ui/core/DialogContentText";
@@ -95,28 +93,28 @@ export default function FormDialog() {
 
     return (
         <div>
-            <Fab color='primary' aria-label='add' onClick={handleClickOpen}>
+            <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
                 <Add />
             </Fab>
             <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby='form-dialog-title'
+                aria-labelledby="form-dialog-title"
             >
-                <DialogTitle id='form-dialog-title'>
+                <DialogTitle id="form-dialog-title">
                     Fill form to create a new task
                 </DialogTitle>
                 <DialogContent>
                     <form className={classes.formControl}>
                         <TextField
                             autoFocus
-                            margin='dense'
-                            id='assignment'
-                            label='Assignment'
-                            placeholder='Assignment Description'
-                            type='text'
+                            margin="dense"
+                            id="assignment"
+                            label="Assignment"
+                            placeholder="Assignment Description"
+                            type="text"
                             fullWidth
-                            name='assignment'
+                            name="assignment"
                             onChange={handleChange}
                             value={assignment.assignment}
                         />
@@ -124,12 +122,12 @@ export default function FormDialog() {
                             Person
                         </InputLabel> */}
                         <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
                             value={assignment.assignee}
                             onChange={handleChange}
-                            name='assignee'
-                            placeholder='Assignee'
+                            name="assignee"
+                            placeholder="Assignee"
                         >
                             {employee.map((person) => (
                                 <MenuItem key={person._id} value={person._id}>
@@ -143,10 +141,10 @@ export default function FormDialog() {
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color='primary'>
+                    <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleConfirm} color='primary'>
+                    <Button onClick={handleConfirm} color="primary">
                         Create
                     </Button>
                 </DialogActions>
