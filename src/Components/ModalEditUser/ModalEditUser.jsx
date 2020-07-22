@@ -32,7 +32,6 @@ export default function ModalEditTaskAdmin(props) {
 
     const [open, setOpen] = React.useState(false);
     const [data, setdata] = React.useState({
-        // assignee: assigneeId,
         status: status,
     });
 
@@ -58,11 +57,14 @@ export default function ModalEditTaskAdmin(props) {
         };
         fetch(url, options);
         setOpen(false);
+        // window.location.reload(true);
     };
 
     // Select
     const handleChange = (event) => {
-        setdata(event.target.value);
+        setdata({
+            status: event.target.value,
+        });
     };
 
     return (
