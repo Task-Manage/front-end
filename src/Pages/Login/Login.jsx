@@ -61,22 +61,26 @@ export default function Login() {
             body: JSON.stringify(userData),
         };
 
-        const response = await fetch(
-            `https://task-manage-adm.herokuapp.com/api/users/login`,
-            options
-        );
-        const result = await response.json();
-        console.log(result);
-        const userLogin = {
-            token: result.token,
-            userData: result.userData,
-        };
-        localStorage.setItem('user', JSON.stringify(userLogin));
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/login`,
+                options
+            );
+            const result = await response.json();
+            console.log(result);
+            const userLogin = {
+                token: result.token,
+                userData: result.userData,
+            };
+            localStorage.setItem('user', JSON.stringify(userLogin));
 
-        if (result.userData.role === 'admin') {
-            history.push('/admin/employees');
-        } else {
-            history.push('/user');
+            if (result.userData.role === 'admin') {
+                history.push('/admin/employees');
+            } else {
+                history.push('/user');
+            }
+        } catch (error) {
+            alert('Wrong email or password!');
         }
     }
 
