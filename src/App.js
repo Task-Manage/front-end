@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 
 import Login from './Pages/Login/Login';
-import LoginAdmin from './Pages/Login/LoginAdmin';
 import Register from './Pages/Register/Register';
+import PrivateRoute from './Helpers/PrivateRoute';
 
 import AlertDelete from './Components/AlertDelete/AlertDelete';
 import ModalEdit from './Components/ModalEdit/ModalEdit';
@@ -38,6 +38,14 @@ function App() {
                     <Route exact path='/register'>
                         <Register />
                     </Route>
+
+                    <PrivateRoute path='/userPage'>
+                        <UserPage />
+                    </PrivateRoute>
+                    <PrivateRoute path='/adminPage'>
+                        <AdminPage />
+                    </PrivateRoute>
+
                     <Route exact path='/admin/tasks'>
                         <AdminPage
                             table={tableTaskAdmin}
@@ -45,7 +53,6 @@ function App() {
                             pageTitle={'Task List'}
                         />
                     </Route>
-                    {/* <Redirect from="/admin" to="/admin/employees" /> */}
                     <Route exact path='/admin/employees'>
                         <AdminPage
                             table={tableEmployeeAdmin}
@@ -54,9 +61,6 @@ function App() {
                     </Route>
                     <Route exact path='/user/tasks'>
                         <UserPage />
-                    </Route>
-                    <Route path='*'>
-                        <AdminPage table={tableEmployeeAdmin} />
                     </Route>
                 </Switch>
             </Router>

@@ -28,15 +28,18 @@ function Login() {
         };
 
         const response = await fetch(
-            'https://task-manage-adm.herokuapp.com/api/users/login',
+            `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/login`,
             options
         );
         const result = await response.json();
 
         localStorage.setItem('user', result.token);
-if (userData.email === "admin@task-management" && result.role === "admin" ) 
-{history.push('/adminPage');}
-else {history.push('/userPage');}
+
+        if (result.role === 'admin') {
+            history.push('/adminPage');
+        } else {
+            history.push('/userPage');
+        }
     }
 
     return (
@@ -65,4 +68,3 @@ else {history.push('/userPage');}
 }
 
 export default Login;
-
