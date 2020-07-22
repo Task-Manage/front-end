@@ -1,18 +1,17 @@
-import React from "react";
+import React from 'react';
 import {
     Button,
     Dialog,
     DialogActions,
     DialogContent,
-    TextField,
     DialogTitle,
     InputLabel,
     MenuItem,
     FormControl,
     Select,
-} from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
+} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default function ModalEditTaskAdmin(props) {
     const userId = props.userId;
@@ -48,11 +47,11 @@ export default function ModalEditTaskAdmin(props) {
     const handleConfirm = async () => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editUser/${userId}`;
         console.log(url);
-        const token = JSON.parse(localStorage.getItem("user")).token;
+        const token = JSON.parse(localStorage.getItem('user')).token;
         const options = {
-            method: "PUT",
+            method: 'PUT',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
@@ -94,10 +93,10 @@ export default function ModalEditTaskAdmin(props) {
                                 value={data.status}
                                 onChange={handleChange}
                             >
-                                <MenuItem value={"in progress"}>
+                                <MenuItem value={'in progress'}>
                                     In Progress
                                 </MenuItem>
-                                <MenuItem value={"need review"}>
+                                <MenuItem value={'need review'}>
                                     Need Review
                                 </MenuItem>
                             </Select>

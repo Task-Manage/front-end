@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
+import React, { useState, useEffect } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
 
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-
-import ModalEditUser from "../ModalEditUser/ModalEditUser";
+import ModalEditUser from '../ModalEditUser/ModalEditUser';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -25,7 +23,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const useStyles = makeStyles({
     root: {
-        width: "100%",
+        width: '100%',
     },
     container: {
         maxHeight: 440,
@@ -48,16 +46,13 @@ export default function TableTaskAdmin(props) {
     };
     // fetching
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("user")).token;
-        console.log(token);
-        const id = JSON.parse(localStorage.getItem("user")).userData.id;
-        console.log(id);
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const id = JSON.parse(localStorage.getItem('user')).userData.id;
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/${id}/tasks`;
-        console.log(url);
         const options = {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 authorization: `Bearer ${token}`,
             },
         };
@@ -74,18 +69,18 @@ export default function TableTaskAdmin(props) {
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell style={{ minWidth: "170" }}>
+                            <StyledTableCell style={{ minWidth: '170' }}>
                                 ID
                             </StyledTableCell>
-                            <StyledTableCell style={{ minWidth: "170" }}>
+                            <StyledTableCell style={{ minWidth: '170' }}>
                                 Task
                             </StyledTableCell>
-                            <StyledTableCell style={{ minWidth: "100" }}>
+                            <StyledTableCell style={{ minWidth: '100' }}>
                                 Status
                             </StyledTableCell>
 
                             <StyledTableCell
-                                style={{ minWidth: "180" }}
+                                style={{ minWidth: '180' }}
                             ></StyledTableCell>
                         </TableRow>
                     </TableHead>
