@@ -14,7 +14,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function ModalEditTaskAdmin() {
+export default function ModalEditTaskAdmin(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -35,7 +35,7 @@ export default function ModalEditTaskAdmin() {
     },
   }));
   const classes = useStyles();
-  const [status, setStatus] = React.useState("todo");
+  const [status, setStatus] = React.useState("start");
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -64,6 +64,8 @@ export default function ModalEditTaskAdmin() {
               type="text"
               fullWidth
             />
+          </FormControl>
+          <FormControl className={classes.formControl}>
             <TextField
               autoFocus
               margin="dense"
@@ -73,6 +75,8 @@ export default function ModalEditTaskAdmin() {
               placeholder="Edit PIC"
               fullWidth
             />
+          </FormControl>
+          <FormControl className={classes.formControl}>
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
               labelId="demo-simple-select-label"
