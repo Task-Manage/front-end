@@ -61,7 +61,10 @@ export default function TableTaskAdmin(props) {
 
         fetch(url, options)
             .then((response) => response.json())
-            .then((results) => setTask(results));
+            .then((results) => {
+                setTask(results);
+                console.log(results);
+            });
     }, [url]);
     console.log(task);
     const rows = [];
@@ -119,14 +122,11 @@ export default function TableTaskAdmin(props) {
                                             >
                                                 <ModalEditTaskAdmin
                                                     taskId={item._id}
-                                                    assigneeId={
-                                                        item.assignee._id
-                                                    }
                                                     assignment={item.assignment}
                                                     status={item.status}
                                                 />
                                                 <AlertDelete
-                                                    taskId={item._id}
+                                                    id={item._id}
                                                     url={url}
                                                 />
                                             </ButtonGroup>
