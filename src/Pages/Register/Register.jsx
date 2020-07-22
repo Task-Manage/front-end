@@ -76,7 +76,7 @@ export default function SignUp() {
             const response = await fetch(url, options);
             const result = await response.json();
 
-            console.log(result);
+            alert(result.message);
         } catch (error) {
             console.error(error);
         }
