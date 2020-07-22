@@ -1,6 +1,6 @@
 import React from "react";
 
-import TableComponent from "../../Components/TableComponent/TableComponent";
+import TableTaskUser from "../../Components/TableTaskUser/TableTaskUser";
 import ModalEdit from "../../Components/ModalEdit/ModalEdit";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import TabTask from "../../Components/TabTask/TabTask";
@@ -8,7 +8,7 @@ import TabTask from "../../Components/TabTask/TabTask";
 function UserPage() {
   const modalEdit = <ModalEdit />;
   const tabTasks = <TabTask />;
-  const table = <TableComponent modalEdit={modalEdit} />;
+  const table = <TableTaskUser modalEdit={modalEdit} />;
 
   return (
     <div>
