@@ -62,7 +62,7 @@ export default function Login() {
         };
 
         const response = await fetch(
-            `https://task-manage-adm.herokuapp.com/api/users/login`,
+            `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/login`,
             options
         );
         const result = await response.json();
