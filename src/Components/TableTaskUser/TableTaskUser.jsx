@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,6 +10,9 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+
+import ModalEditTaskAdmin from "../ModalEditTaskAdmin/ModalEditTaskAdmin";
+import AlertDelete from "../AlertDelete/AlertDelete";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -30,11 +33,12 @@ const useStyles = makeStyles({
     },
 });
 
-export default function TableComponent(props) {
+export default function TableTaskAdmin(props) {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [taskUser, setTaskUser] = useState(null);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -43,33 +47,14 @@ export default function TableComponent(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    const columns = [
-        { id: "id", label: "ID", minWidth: 100 },
-        { id: "task", label: "Task", minWidth: 170 },
-        {
-            id: "status",
-            label: "Status",
-            align: "center",
-            minWidth: 170,
-        },
-    ];
-
-    function createData(id, task, status) {
-        return { id, task, status };
-    }
-
-    const rows = [
-        // createData("Table users", "Agus", "Ongoing"),
-        // createData("Login-Register", "Ian", "Ongoing"),
-        // createData("Table tasks", "Resha", "Ongoing"),
-    ];
-
     // fetching
     useEffect(() => {
-        const id = JSON.parse(localStorage.getItem("user")).token;
-        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/${id}/tasks`;
         const token = JSON.parse(localStorage.getItem("user")).token;
+        console.log(token);
+        const id = JSON.parse(localStorage.getItem("user")).userData.id;
+        console.log(id);
+        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/${id}/tasks`;
+        console.log(url);
         const options = {
             method: "GET",
             headers: {
@@ -82,65 +67,71 @@ export default function TableComponent(props) {
             .then((response) => response.json())
             .then((results) => setTaskUser(results));
     }, []);
-
+    console.log(taskUser);
+    const rows = [];
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            {columns.map((column) => (
-                                <StyledTableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </StyledTableCell>
-                            ))}
+                            <StyledTableCell style={{ minWidth: "170" }}>
+                                ID
+                            </StyledTableCell>
+                            <StyledTableCell style={{ minWidth: "170" }}>
+                                Task
+                            </StyledTableCell>
+                            <StyledTableCell style={{ minWidth: "100" }}>
+                                PIC
+                            </StyledTableCell>
+                            <StyledTableCell style={{ minWidth: "170" }}>
+                                Status
+                            </StyledTableCell>
                             <StyledTableCell
-                                align={columns.align}
-                                style={{ minWidth: columns.minWidth }}
+                                style={{ minWidth: "180" }}
                             ></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
-                            .slice(
-                                page * rowsPerPage,
-                                page * rowsPerPage + rowsPerPage
-                            )
-                            .map((row) => {
-                                return (
-                                    <TableRow
-                                        hover
-                                        role="checkbox"
-                                        tabIndex={-1}
-                                        key={columns.id}
-                                    >
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                >
-                                                    {value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                        <ButtonGroup
-                                            disableElevation
-                                            variant="contained"
-                                            color="primary"
-                                            style={{ padding: "16px" }}
+                        {taskUser !== null &&
+                            taskUser
+                                .slice(
+                                    page * rowsPerPage,
+                                    page * rowsPerPage + rowsPerPage
+                                )
+                                .map((item) => {
+                                    return (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            tabIndex={-1}
+                                            key={item.id}
                                         >
-                                            {props.modalEdit}
-                                            {props.alertDelete}
-                                        </ButtonGroup>
-                                    </TableRow>
-                                );
-                            })}
+                                            <TableCell>{item.id}</TableCell>
+                                            <TableCell>{item.name}</TableCell>
+                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>{item.status}</TableCell>
+                                            {/* <ButtonGroup
+                                                disableElevation
+                                                variant="contained"
+                                                color="primary"
+                                                style={{ padding: "16px" }}
+                                            >
+                                                <ModalEditTaskAdmin
+                                                    taskId={item._id}
+                                                    assigneeId={
+                                                        item.assignee._id
+                                                    }
+                                                    assignment={item.assignment}
+                                                    status={item.status}
+                                                />
+                                                <AlertDelete
+                                                    taskId={item._id}
+                                                />
+                                            </ButtonGroup> */}
+                                        </TableRow>
+                                    );
+                                })}
                     </TableBody>
                 </Table>
             </TableContainer>
