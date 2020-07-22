@@ -5,6 +5,8 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
+    FormControl,
+    InputLabel,
     DialogTitle,
     Fab,
     MenuItem,
@@ -85,7 +87,10 @@ export default function FormDialog() {
 
         fetch(url, options)
             .then((response) => response.json())
-            .then((result) => alert(result.message))
+            .then((result) => {
+                alert(result.message);
+                window.location.reload(true);
+            })
             .catch((error) => console.error(error));
 
         setOpen(false);
@@ -93,7 +98,12 @@ export default function FormDialog() {
 
     return (
         <div>
-            <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+            <Fab
+                color="primary"
+                aria-label="add"
+                onClick={handleClickOpen}
+                style={{ margin: '1em' }}
+            >
                 <Add />
             </Fab>
             <Dialog
@@ -106,38 +116,45 @@ export default function FormDialog() {
                 </DialogTitle>
                 <DialogContent>
                     <form className={classes.formControl}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="assignment"
-                            label="Assignment"
-                            placeholder="Assignment Description"
-                            type="text"
-                            fullWidth
-                            name="assignment"
-                            onChange={handleChange}
-                            value={assignment.assignment}
-                        />
-                        {/* <InputLabel id='demo-simple-select-label'>
-                            Person
-                        </InputLabel> */}
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={assignment.assignee}
-                            onChange={handleChange}
-                            name="assignee"
-                            placeholder="Assignee"
-                        >
-                            {employee.map((person) => (
-                                <MenuItem key={person._id} value={person._id}>
-                                    {person.name}
-                                </MenuItem>
-                            ))}
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="assignment"
+                                label="Assignment"
+                                placeholder="Assignment Description"
+                                type="text"
+                                fullWidth
+                                name="assignment"
+                                onChange={handleChange}
+                                value={assignment.assignment}
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-label">
+                                Person
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={assignment.assignee}
+                                onChange={handleChange}
+                                name="assignee"
+                                placeholder="Assignee"
+                            >
+                                {employee.map((person) => (
+                                    <MenuItem
+                                        key={person._id}
+                                        value={person._id}
+                                    >
+                                        {person.name}
+                                    </MenuItem>
+                                ))}
 
-                            {/* <MenuItem value={'ongoing'}>Ongoing</MenuItem>
+                                {/* <MenuItem value={'ongoing'}>Ongoing</MenuItem>
                             <MenuItem value={'done'}>Done</MenuItem> */}
-                        </Select>
+                            </Select>
+                        </FormControl>
                     </form>
                 </DialogContent>
                 <DialogActions>
