@@ -51,7 +51,13 @@ export default function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        if (
+            userData.name === '' ||
+            userData.email === '' ||
+            userData.password === ''
+        ) {
+            alert('WARNING: Complete form to continue');
+        }
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
         const options = {
@@ -71,7 +77,7 @@ export default function SignUp() {
                 history.push('/');
             }
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 
