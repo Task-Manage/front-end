@@ -1,39 +1,21 @@
 import React from "react";
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
+  TextField,
   DialogTitle,
-  Fab,
   InputLabel,
   MenuItem,
   FormControl,
   Select,
 } from "@material-ui/core";
-// import DialogContentText from "@material-ui/core/DialogContentText";
-import Add from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-export default function FormDialog() {
+export default function ModalEditTaskAdmin() {
   const [open, setOpen] = React.useState(false);
-  const classes = useStyles();
-  const [status, setStatus] = React.useState("todo");
-
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,20 +24,35 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  // Select
+  const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
+  const classes = useStyles();
+  const [status, setStatus] = React.useState("todo");
+
+  const handleChange = (event) => {
+    setStatus(event.target.value);
+  };
 
   return (
     <div>
-      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
-        <Add />
-      </Fab>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        <EditIcon />
+        Edit
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">
-          Fill form to create a new task
-        </DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
         <DialogContent>
           <FormControl className={classes.formControl}>
             <TextField
@@ -63,7 +60,7 @@ export default function FormDialog() {
               margin="dense"
               id="task"
               label="Task"
-              placeholder="Task Name"
+              placeholder="Edit Task Name"
               type="text"
               fullWidth
             />
@@ -73,7 +70,7 @@ export default function FormDialog() {
               id="pic"
               label="PIC"
               type="text"
-              placeholder="Assign PIC"
+              placeholder="Edit PIC"
               fullWidth
             />
             <InputLabel id="demo-simple-select-label">Status</InputLabel>
@@ -94,7 +91,7 @@ export default function FormDialog() {
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
-            Create
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
