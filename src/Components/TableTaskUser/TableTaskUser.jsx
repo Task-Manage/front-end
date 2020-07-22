@@ -105,11 +105,12 @@ export default function TableTaskAdmin(props) {
                                             </TableCell>
 
                                             <TableCell>{item.status}</TableCell>
-
-                                            <ModalEditUser
-                                                userId={item._id}
-                                                status={item.status}
-                                            />
+                                            {item.status !== 'done' && (
+                                                <ModalEditUser
+                                                    userId={item._id}
+                                                    status={item.status}
+                                                />
+                                            )}
                                         </TableRow>
                                     );
                                 })}
