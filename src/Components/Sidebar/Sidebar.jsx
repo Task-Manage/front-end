@@ -8,10 +8,15 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 // icon
-import { Menu } from "@material-ui/icons";
+import { Menu, ExitToAppSharp } from "@material-ui/icons";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
@@ -50,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Sidebar(props) {
+  const history = useHistory();
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -59,6 +65,11 @@ function Sidebar(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleClick = () => {
+    localStorage.removeItem("user");
+    history.push("/");
+  };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -66,6 +77,15 @@ function Sidebar(props) {
       {props.tabEmployees}
       <Divider />
       {props.tabTasks}
+      <Divider />
+      <List>
+        <ListItem button onClick={handleClick}>
+          <ListItemIcon>
+            <ExitToAppSharp />
+          </ListItemIcon>
+          <ListItemText primary="Log Out" />
+        </ListItem>
+      </List>
       <Divider />
     </div>
   );
