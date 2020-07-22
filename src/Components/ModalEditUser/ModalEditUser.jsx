@@ -32,7 +32,6 @@ export default function ModalEditTaskAdmin(props) {
 
     const [open, setOpen] = React.useState(false);
     const [data, setdata] = React.useState({
-        // assignee: assigneeId,
         status: status,
     });
 
@@ -44,7 +43,7 @@ export default function ModalEditTaskAdmin(props) {
         setOpen(false);
     };
 
-    const handleConfirm = async () => {
+    const handleConfirm = () => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editUser/${userId}`;
         console.log(url);
         const token = JSON.parse(localStorage.getItem('user')).token;
@@ -56,13 +55,18 @@ export default function ModalEditTaskAdmin(props) {
             },
             body: JSON.stringify(data),
         };
-        fetch(url, options);
-        setOpen(false);
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setOpen(false);
+                window.location.reload(true);
+            });
     };
 
-    // Select
     const handleChange = (event) => {
-        setdata(event.target.value);
+        setdata({
+            status: event.target.value,
+        });
     };
 
     return (
@@ -102,17 +106,6 @@ export default function ModalEditTaskAdmin(props) {
                             </Select>
                         </FormControl>
                     </form>
-                    {/* <FormControl className={classes.formControl}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="pic"
-              label="PIC"
-              type="text"
-              placeholder="Edit PIC"
-              fullWidth
-            />
-          </FormControl> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
