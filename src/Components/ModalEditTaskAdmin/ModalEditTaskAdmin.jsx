@@ -15,16 +15,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default function ModalEditTaskAdmin(props) {
-  const [open, setOpen] = React.useState(false);
+  const taskId = props.taskId;
+  const assigneeId = props.assigneeId;
+  const assignment = props.assignment;
+  const status = props.status;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  // Select
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -35,10 +30,40 @@ export default function ModalEditTaskAdmin(props) {
     },
   }));
   const classes = useStyles();
-  const [status, setStatus] = React.useState("start");
 
+  const [open, setOpen] = React.useState(false);
+  const [data, setdata] = React.useState({
+    assignment: assignment,
+    assignee: assigneeId,
+    status: status,
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirm = async () => {
+    const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editAdmin/${taskId}`;
+    const token = JSON.parse(localStorage.getItem("user")).token;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    };
+    fetch(url, options);
+    setOpen(false);
+  };
+
+  // Select
   const handleChange = (event) => {
-    setStatus(event.target.value);
+    setdata(event.target.value);
   };
 
   return (
@@ -54,18 +79,37 @@ export default function ModalEditTaskAdmin(props) {
       >
         <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
         <DialogContent>
-          <FormControl className={classes.formControl}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="task"
-              label="Task"
-              placeholder="Edit Task Name"
-              type="text"
-              fullWidth
-            />
-          </FormControl>
-          <FormControl className={classes.formControl}>
+          <form>
+            <FormControl className={classes.formControl}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="assignment"
+                name="assignment"
+                label="Task"
+                placeholder="Edit Task Name"
+                type="text"
+                onChange={handleChange}
+                value={data.assignment}
+                fullWidth
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={data.status}
+                onChange={handleChange}
+              >
+                <MenuItem value={"start"}>Start</MenuItem>
+                <MenuItem value={"in progress"}>In Progress</MenuItem>
+                <MenuItem value={"need review"}>Need Review</MenuItem>
+                <MenuItem value={"finish"}>Finish</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
+          {/* <FormControl className={classes.formControl}>
             <TextField
               autoFocus
               margin="dense"
@@ -73,29 +117,16 @@ export default function ModalEditTaskAdmin(props) {
               label="PIC"
               type="text"
               placeholder="Edit PIC"
+
               fullWidth
             />
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              onChange={handleChange}
-            >
-              <MenuItem value={"start"}>Start</MenuItem>
-              <MenuItem value={"in progress"}>In Progress</MenuItem>
-              <MenuItem value={"need review"}>Need Review</MenuItem>
-              <MenuItem value={"done"}>Done</MenuItem>
-            </Select>
-          </FormControl>
+          </FormControl> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleConfirm} color="primary">
             Confirm
           </Button>
         </DialogActions>
