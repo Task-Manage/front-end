@@ -12,7 +12,6 @@ import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import ModalEditUser from "../ModalEditUser/ModalEditUser";
-import AlertDelete from "../AlertDelete/AlertDelete";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -113,21 +112,13 @@ export default function TableTaskAdmin(props) {
                                             </TableCell>
 
                                             <TableCell>{item.status}</TableCell>
-                                            <ButtonGroup
-                                                disableElevation
-                                                variant="contained"
-                                                color="primary"
-                                                style={{ padding: "16px" }}
-                                            >
-                                                <ModalEditUser
-                                                    taskId={item._id}
-                                                    assigneeId={
-                                                        item.assignee._id
-                                                    }
-                                                    assignment={item.assignment}
-                                                    status={item.status}
-                                                />
-                                            </ButtonGroup>
+
+                                            <ModalEditUser
+                                                taskId={item._id}
+                                                assigneeId={item.assignee._id}
+                                                assignment={item.assignment}
+                                                status={item.status}
+                                            />
                                         </TableRow>
                                     );
                                 })}
