@@ -41,7 +41,7 @@ export default function ModalEditTaskAdmin(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
-
+  
     const handleClose = () => {
         setOpen(false);
         setdata({
@@ -54,7 +54,6 @@ export default function ModalEditTaskAdmin(props) {
     const handleConfirm = async () => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editAdmin/${taskId}`;
         const token = JSON.parse(localStorage.getItem('user')).token;
-
         const options = {
             method: 'PUT',
             headers: {
@@ -63,9 +62,12 @@ export default function ModalEditTaskAdmin(props) {
             },
             body: JSON.stringify(data),
         };
-        fetch(url, options);
-        setOpen(false);
-        window.location.reload();
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setOpen(false);
+                window.location.reload(true);
+            });
     };
 
     // Select
