@@ -45,6 +45,16 @@ export default function TableEmployeeAdmin(props) {
     const [employeeData, setEmployeeData] = useState(null);
     const urlDelete = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
     const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/getAllUserAdminPage`;
+    const [input, setinput] = useState('');
+
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+        },
+    };
 
     const columns = [
         { id: 'id', label: 'ID', minWidth: 170 },
@@ -72,28 +82,43 @@ export default function TableEmployeeAdmin(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    // const handleChange = (event) => {
+    //     setinput(event.target.value);
+    //     console.log(event.target.value);
+    // };
 
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('user')).token;
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: `Bearer ${token}`,
-            },
-        };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setinput(event.target.name);
+        getFilteredEmployee();
+    };
 
-        fetch(url, options)
+    const getFilteredEmployee = () => {
+        const urlFilter = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/search/?user=${input}`;
+        fetch(urlFilter, options)
             .then((response) => response.json())
             .then((results) => {
                 setEmployeeData(results.result);
             });
+    };
+
+    const getAllEmployee = () => {
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setEmployeeData(results.result);
+                console.log(results);
+            });
+    };
+    useEffect(() => {
+        if (input !== '' && employeeData !== undefined) {
+            getFilteredEmployee();
+        } else {
+            getAllEmployee();
+        }
 
         // eslint-disable-next-line
     }, []);
-
-    console.log(employeeData);
-
     return (
         <Paper className={classes.root}>
             {employeeData !== null && (
@@ -112,19 +137,26 @@ export default function TableEmployeeAdmin(props) {
                         </Avatar>
                     </Box>
                     <Box component="div" style={{ margin: '1em' }}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={employeeData !== null && employeeData}
-                            getOptionLabel={(option) => option.name}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Search Employee Name"
-                                    variant="outlined"
-                                />
-                            )}
-                        />
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={employeeData !== null && employeeData}
+                                getOptionLabel={(option) =>
+                                    option !== undefined && option.name
+                                }
+                                style={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Employee Name"
+                                        variant="outlined"
+                                        name="input"
+                                        // onSelect={handleChange}
+                                        value={input}
+                                    />
+                                )}
+                            />
+                        </form>
                     </Box>
                 </Box>
             )}
@@ -142,48 +174,52 @@ export default function TableEmployeeAdmin(props) {
                             ))}
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {employeeData !== null &&
-                            employeeData
-                                .slice(
-                                    page * rowsPerPage,
-                                    page * rowsPerPage + rowsPerPage
-                                )
-                                .map((employee) => {
-                                    return (
-                                        <TableRow
-                                            hover
-                                            role="checkbox"
-                                            tabIndex={-1}
-                                        >
-                                            <TableCell>
-                                                {employee._id}
-                                            </TableCell>
-                                            <TableCell>
-                                                {employee.name}
-                                            </TableCell>
-                                            <TableCell>
-                                                {employee.email}
-                                            </TableCell>
-                                            <AlertDelete
-                                                id={employee._id}
-                                                url={urlDelete}
-                                            />
-                                        </TableRow>
-                                    );
-                                })}
-                    </TableBody>
+                    {employeeData !== undefined && (
+                        <TableBody>
+                            {employeeData !== null &&
+                                employeeData
+                                    .slice(
+                                        page * rowsPerPage,
+                                        page * rowsPerPage + rowsPerPage
+                                    )
+                                    .map((employee) => {
+                                        return (
+                                            <TableRow
+                                                hover
+                                                role="checkbox"
+                                                tabIndex={-1}
+                                            >
+                                                <TableCell>
+                                                    {employee._id}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {employee.name}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {employee.email}
+                                                </TableCell>
+                                                <AlertDelete
+                                                    id={employee._id}
+                                                    url={urlDelete}
+                                                />
+                                            </TableRow>
+                                        );
+                                    })}
+                        </TableBody>
+                    )}
                 </Table>
             </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={employeeData !== null && employeeData.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            {employeeData !== undefined && (
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={employeeData !== null && employeeData.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            )}
         </Paper>
     );
 }
