@@ -41,7 +41,7 @@ export default function ModalEditTaskAdmin(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
-  
+
     const handleClose = () => {
         setOpen(false);
         setdata({
@@ -132,18 +132,6 @@ export default function ModalEditTaskAdmin(props) {
                             </Select>
                         </FormControl>
                     </form>
-                    {/* <FormControl className={classes.formControl}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="pic"
-              label="PIC"
-              type="text"
-              placeholder="Edit PIC"
-
-              fullWidth
-            />
-          </FormControl> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
