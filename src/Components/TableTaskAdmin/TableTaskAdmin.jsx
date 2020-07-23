@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableHead,
+    TableCell,
+    TableContainer,
+    TablePagination,
+    TableRow,
+    Box,
+    Avatar,
+    TextField,
+    ButtonGroup,
+} from '@material-ui/core';
 
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { Autocomplete } from '@material-ui/lab';
+import { Pageview } from '@material-ui/icons';
 
 import ModalEditTaskAdmin from '../ModalEditTaskAdmin/ModalEditTaskAdmin';
 import AlertDelete from '../AlertDelete/AlertDelete';
@@ -68,6 +75,38 @@ export default function TableTaskAdmin(props) {
     }, [url]);
     return (
         <Paper className={classes.root}>
+            {task !== null && (
+                <Box
+                    component="div"
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Box component="div" style={{ marginTop: '20px' }}>
+                        <Avatar style={{ background: '#e7305b' }}>
+                            <Pageview />
+                        </Avatar>
+                    </Box>
+                    <Box component="div" style={{ margin: '1em' }}>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={task !== null && task}
+                            getOptionLabel={(option) => option.assignment}
+                            style={{ width: 300 }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Search Task Name"
+                                    variant="outlined"
+                                />
+                            )}
+                        />
+                    </Box>
+                </Box>
+            )}
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
