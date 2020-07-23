@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-// import ButtonGroup from "@material-ui/core/ButtonGroup";
 import AlertDelete from '../AlertDelete/AlertDelete';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -39,6 +38,24 @@ export default function TableEmployeeAdmin(props) {
     const urlDelete = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
     const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/getAllUserAdminPage`;
 
+    const columns = [
+        { id: 'id', label: 'ID', minWidth: 170 },
+        { id: 'name', label: 'Name', minWidth: 100 },
+
+        {
+            id: 'email',
+            label: 'Email',
+            minWidth: 170,
+            align: 'right',
+        },
+        {
+            id: 'options',
+            label: 'Options',
+            minWidth: 170,
+            align: 'right',
+        },
+    ];
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -60,11 +77,14 @@ export default function TableEmployeeAdmin(props) {
 
         fetch(url, options)
             .then((response) => response.json())
-            .then((results) => setEmployeeData(results.result));
-    }, [url]);
+            .then((results) => {
+                setEmployeeData(results.result);
+            });
+
+        // eslint-disable-next-line
+    }, []);
 
     console.log(employeeData);
-    const rows = [];
 
     return (
         <Paper className={classes.root}>
@@ -72,18 +92,14 @@ export default function TableEmployeeAdmin(props) {
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell style={{ minWidth: '170' }}>
-                                ID
-                            </StyledTableCell>
-                            <StyledTableCell style={{ minWidth: '100' }}>
-                                Name
-                            </StyledTableCell>
-                            <StyledTableCell style={{ minWidth: '170' }}>
-                                Email
-                            </StyledTableCell>
-                            <StyledTableCell
-                                style={{ minWidth: '180' }}
-                            ></StyledTableCell>
+                            {columns.map((column) => (
+                                <StyledTableCell
+                                    key={column.id}
+                                    style={{ minWidth: '170' }}
+                                >
+                                    {column.label}
+                                </StyledTableCell>
+                            ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -122,7 +138,7 @@ export default function TableEmployeeAdmin(props) {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={employeeData !== null && employeeData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
