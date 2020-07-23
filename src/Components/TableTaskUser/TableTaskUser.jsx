@@ -62,7 +62,7 @@ export default function TableTaskAdmin(props) {
             .then((results) => setTaskUser(results.tasks));
     }, []);
     console.log(taskUser);
-    const rows = [];
+    // const rows = [];
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
@@ -120,7 +120,7 @@ export default function TableTaskAdmin(props) {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={taskUser !== null && taskUser.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
