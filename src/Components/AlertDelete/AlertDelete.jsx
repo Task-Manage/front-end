@@ -7,8 +7,7 @@ function AlertDelete(props) {
     const [openDelete, setOpenDelete] = React.useState(false);
     const id = props.id;
     const url = `${props.url}/${id}`;
-    console.log(props);
-    console.log(url);
+
     const handleClickOpenDelete = () => {
         setOpenDelete(true);
     };
