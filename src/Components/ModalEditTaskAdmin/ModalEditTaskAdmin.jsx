@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default function ModalEditTaskAdmin(props) {
     const taskId = props.taskId;
+    const assigneeId = props.assigneeId;
     const assignment = props.assignment;
     const status = props.status;
 
@@ -33,18 +34,24 @@ export default function ModalEditTaskAdmin(props) {
     const [open, setOpen] = React.useState(false);
     const [data, setdata] = React.useState({
         assignment: assignment,
+        assignee: assigneeId,
         status: status,
     });
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-
+  
     const handleClose = () => {
         setOpen(false);
+        setdata({
+            assignment: assignment,
+            assignee: assigneeId,
+            status: status,
+        });
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editAdmin/${taskId}`;
         const token = JSON.parse(localStorage.getItem('user')).token;
         const options = {
@@ -60,13 +67,15 @@ export default function ModalEditTaskAdmin(props) {
             .then((results) => {
                 setOpen(false);
                 window.location.reload(true);
-                console.log(results);
             });
     };
 
     // Select
     const handleChange = (event) => {
-        setdata({ ...data, [event.target.name]: event.target.value });
+        setdata({
+            ...data,
+            [event.target.name]: event.target.value,
+        });
     };
 
     return (
