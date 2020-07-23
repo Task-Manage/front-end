@@ -43,6 +43,7 @@ export default function TableTaskAdmin(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [taskUser, setTaskUser] = useState(null);
+    const [input, setinput] = useState('');
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -52,11 +53,34 @@ export default function TableTaskAdmin(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    const handleChange = (event) => {
+        setinput(event.target.value);
+        console.log(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        getFilteredTask();
+    };
+    const getFilteredTask = (urlFilter, options) => {
+        fetch(urlFilter, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setTaskUser(results.tasks);
+            });
+    };
+
+    const getAlltasks = (url, options) => {
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((results) => setTaskUser(results.tasks));
+    };
     // fetching
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('user')).token;
         const id = JSON.parse(localStorage.getItem('user')).userData.id;
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/${id}/tasks`;
+        const urlFilter = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/search/${id}/?task=${input}`;
         const options = {
             method: 'GET',
             headers: {
@@ -64,11 +88,13 @@ export default function TableTaskAdmin(props) {
                 authorization: `Bearer ${token}`,
             },
         };
-
-        fetch(url, options)
-            .then((response) => response.json())
-            .then((results) => setTaskUser(results.tasks));
-    }, []);
+        if (input !== '') {
+            getFilteredTask(urlFilter, options);
+        } else {
+            getAlltasks(url, options);
+        }
+        // eslint-disable-next-line
+    }, [input]);
     console.log(taskUser);
     // const rows = [];
     return (
@@ -89,19 +115,23 @@ export default function TableTaskAdmin(props) {
                         </Avatar>
                     </Box>
                     <Box component="div" style={{ margin: '1em' }}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={taskUser !== null && taskUser}
-                            getOptionLabel={(option) => option.assignment}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Search Task Name"
-                                    variant="outlined"
-                                />
-                            )}
-                        />
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={taskUser !== null && taskUser}
+                                getOptionLabel={(option) => option.assignment}
+                                style={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Task Name"
+                                        variant="outlined"
+                                        onChange={handleChange}
+                                        value={input}
+                                    />
+                                )}
+                            />
+                        </form>
                     </Box>
                 </Box>
             )}
