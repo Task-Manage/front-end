@@ -45,7 +45,17 @@ export default function TableTaskAdmin(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [task, setTask] = useState(null);
+    const [input, setinput] = useState('');
     const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks`;
+
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+        },
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -56,23 +66,42 @@ export default function TableTaskAdmin(props) {
         setPage(0);
     };
 
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('user')).token;
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: `Bearer ${token}`,
-            },
-        };
+    const handleChange = (event) => {
+        setinput(event.target.value);
+        console.log(event.target.value);
+    };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        getFilteredTask();
+    };
+
+    const getFilteredTask = () => {
+        const urlFilter = `${url}/search/?task=${input}`;
+        fetch(urlFilter, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setTask(results);
+                console.log(results);
+            });
+    };
+
+    const getAlltasks = () => {
         fetch(url, options)
             .then((response) => response.json())
             .then((results) => {
                 setTask(results);
                 console.log(results);
             });
-    }, [url]);
+    };
+    useEffect(() => {
+        if (input !== '') {
+            getFilteredTask();
+        } else {
+            getAlltasks();
+        }
+        // eslint-disable-next-line
+    }, [input]);
     return (
         <Paper className={classes.root}>
             {task !== null && (
@@ -91,19 +120,23 @@ export default function TableTaskAdmin(props) {
                         </Avatar>
                     </Box>
                     <Box component="div" style={{ margin: '1em' }}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={task !== null && task}
-                            getOptionLabel={(option) => option.assignment}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Search Task Name"
-                                    variant="outlined"
-                                />
-                            )}
-                        />
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={task !== null && task}
+                                getOptionLabel={(option) => option.assignment}
+                                style={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Task Name"
+                                        variant="outlined"
+                                        onSelect={handleChange}
+                                        value={input}
+                                    />
+                                )}
+                            />
+                        </form>
                     </Box>
                 </Box>
             )}
