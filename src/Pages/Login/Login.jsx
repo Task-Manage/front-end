@@ -67,7 +67,6 @@ export default function Login() {
                 options
             );
             const result = await response.json();
-            console.log(result);
             const userLogin = {
                 token: result.token,
                 userData: result.userData,
