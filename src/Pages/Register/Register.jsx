@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import swal from 'sweetalert';
+
 import { NavLink, useHistory } from 'react-router-dom';
 import Copyright from '../../Components/Copyright/Copyright';
 
@@ -56,7 +58,7 @@ export default function SignUp() {
             userData.email === '' ||
             userData.password === ''
         ) {
-            alert('WARNING: Complete form to continue');
+            swal('Try Again!', 'Complete Form to Continue!', 'warning');
         } else {
             const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
@@ -73,7 +75,7 @@ export default function SignUp() {
                 const result = await response.json();
 
                 if (result) {
-                    alert(result.message);
+                    swal('Succes!', 'Continue to Login Form!', 'success');
                     history.push('/');
                 }
             } catch (error) {
