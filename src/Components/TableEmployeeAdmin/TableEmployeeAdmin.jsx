@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableHead,
-    TableCell,
-    TableContainer,
-    TablePagination,
-    TableRow,
-    Box,
-    Avatar,
-    TextField,
-} from '@material-ui/core';
+// import {
+//     Paper,
+//     Table,
+//     TableBody,
+//     TableHead,
+//     TableCell,
+//     TableContainer,
+//     TablePagination,
+//     TableRow,
+//     Box,
+//     Avatar,
+//     TextField,
+// } from '@material-ui/core';
 
-import { Autocomplete } from '@material-ui/lab';
-import { Pageview } from '@material-ui/icons';
+// import { Autocomplete } from '@material-ui/lab';
+// import { Pageview } from '@material-ui/icons';
 
 import AlertDelete from '../AlertDelete/AlertDelete';
 
@@ -96,7 +96,7 @@ export default function TableEmployeeAdmin(props) {
 
     return (
         <Paper className={classes.root}>
-            {employeeData !== null && (
+<!--             {employeeData !== null && (
                 <Box
                     component="div"
                     style={{
@@ -127,7 +127,7 @@ export default function TableEmployeeAdmin(props) {
                         />
                     </Box>
                 </Box>
-            )}
+            )} -->
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
