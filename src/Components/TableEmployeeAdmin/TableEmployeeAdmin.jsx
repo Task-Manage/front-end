@@ -163,7 +163,7 @@ export default function TableEmployeeAdmin(props) {
                         </form>
                     </Box>
                 </Box>
-            )} -->
+            )} 
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
