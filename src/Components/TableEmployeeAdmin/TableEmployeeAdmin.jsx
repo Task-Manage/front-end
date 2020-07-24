@@ -43,6 +43,7 @@ export default function TableEmployeeAdmin(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [employeeData, setEmployeeData] = useState(null);
+    const [input, setInput] = useState('');
     const urlDelete = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
     const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/getAllUserAdminPage`;
 
@@ -73,7 +74,25 @@ export default function TableEmployeeAdmin(props) {
         setPage(0);
     };
 
-    useEffect(() => {
+    const getFilteredUser = () => {
+        const urlFilter = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users/search/?user=${input}`;
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+            },
+        };
+
+        fetch(urlFilter, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setEmployeeData(results);
+            });
+    };
+
+    const getAllUsers = () => {
         const token = JSON.parse(localStorage.getItem('user')).token;
         const options = {
             method: 'GET',
@@ -88,9 +107,24 @@ export default function TableEmployeeAdmin(props) {
             .then((results) => {
                 setEmployeeData(results.result);
             });
+    };
 
+    useEffect(() => {
+        if (input !== '') {
+            getFilteredUser();
+        } else {
+            getAllUsers();
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [input]);
+
+    const handleChange = (event) => {
+        setInput(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    };
 
     return (
         <Paper className={classes.root}>
@@ -110,19 +144,23 @@ export default function TableEmployeeAdmin(props) {
                         </Avatar>
                     </Box>
                     <Box component="div" style={{ margin: '1em' }}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={employeeData !== null && employeeData}
-                            getOptionLabel={(option) => option.name}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Search Employee Name"
-                                    variant="outlined"
-                                />
-                            )}
-                        />
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={employeeData !== null && employeeData}
+                                getOptionLabel={(option) => option.name}
+                                style={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Employee Name"
+                                        variant="outlined"
+                                        onSelect={handleChange}
+                                        value={input}
+                                    />
+                                )}
+                            />
+                        </form>
                     </Box>
                 </Box>
             )}

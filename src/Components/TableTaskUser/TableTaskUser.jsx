@@ -94,7 +94,7 @@ export default function TableTaskAdmin(props) {
         }
         // eslint-disable-next-line
     }, [input]);
-    // const rows = [];
+
     return (
         <Paper className={classes.root}>
             {taskUser !== null && (
@@ -124,7 +124,7 @@ export default function TableTaskAdmin(props) {
                                         {...params}
                                         label="Search Task Name"
                                         variant="outlined"
-                                        onChange={handleChange}
+                                        onSelect={handleChange}
                                         value={input}
                                     />
                                 )}
