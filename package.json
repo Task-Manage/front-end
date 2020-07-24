@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
 <<<<<<< HEAD
+<<<<<<< HEAD
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
@@ -14,9 +15,12 @@
         "npm": "6.14.5",
         "node": "12.18.1"
     },
+=======
+>>>>>>> 50683d00b9de91d43815d16a3307ab7ae3c43d78
     "dependencies": {
         "@material-ui/core": "^4.11.0",
         "@material-ui/icons": "^4.9.1",
+        "@material-ui/lab": "^4.0.0-alpha.56",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableHead,
+    TableCell,
+    TableContainer,
+    TablePagination,
+    TableRow,
+    Box,
+    Avatar,
+    TextField,
+    ButtonGroup,
+} from '@material-ui/core';
 
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { Autocomplete } from '@material-ui/lab';
+import { Pageview } from '@material-ui/icons';
 
 import ModalEditTaskAdmin from '../ModalEditTaskAdmin/ModalEditTaskAdmin';
 import AlertDelete from '../AlertDelete/AlertDelete';
@@ -38,7 +45,17 @@ export default function TableTaskAdmin(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [task, setTask] = useState(null);
+    const [input, setinput] = useState('');
     const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks`;
+
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+        },
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -49,27 +66,80 @@ export default function TableTaskAdmin(props) {
         setPage(0);
     };
 
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('user')).token;
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: `Bearer ${token}`,
-            },
-        };
+    const handleChange = (event) => {
+        setinput(event.target.value);
+        console.log(event.target.value);
+    };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        getFilteredTask();
+    };
+
+    const getFilteredTask = () => {
+        const urlFilter = `${url}/search/?task=${input}`;
+        fetch(urlFilter, options)
+            .then((response) => response.json())
+            .then((results) => {
+                setTask(results);
+                console.log(results);
+            });
+    };
+
+    const getAlltasks = () => {
         fetch(url, options)
             .then((response) => response.json())
             .then((results) => {
                 setTask(results);
                 console.log(results);
             });
-    }, [url]);
-    console.log(task);
-    const rows = [];
+    };
+    useEffect(() => {
+        if (input !== '') {
+            getFilteredTask();
+        } else {
+            getAlltasks();
+        }
+        // eslint-disable-next-line
+    }, [input]);
     return (
         <Paper className={classes.root}>
+            {task !== null && (
+                <Box
+                    component="div"
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Box component="div" style={{ marginTop: '20px' }}>
+                        <Avatar style={{ background: '#e7305b' }}>
+                            <Pageview />
+                        </Avatar>
+                    </Box>
+                    <Box component="div" style={{ margin: '1em' }}>
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={task !== null && task}
+                                getOptionLabel={(option) => option.assignment}
+                                style={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Search Task Name"
+                                        variant="outlined"
+                                        onSelect={handleChange}
+                                        value={input}
+                                    />
+                                )}
+                            />
+                        </form>
+                    </Box>
+                </Box>
+            )}
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -139,7 +209,7 @@ export default function TableTaskAdmin(props) {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={task !== null && task.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
