@@ -62,6 +62,7 @@ export default function SignUp() {
         } else {
             const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
+
             const options = {
                 method: 'POST',
                 headers: {
