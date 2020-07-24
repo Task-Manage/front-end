@@ -92,8 +92,6 @@ export default function TableEmployeeAdmin(props) {
         // eslint-disable-next-line
     }, []);
 
-    console.log(employeeData);
-
     return (
         <Paper className={classes.root}>
             {employeeData !== null && (

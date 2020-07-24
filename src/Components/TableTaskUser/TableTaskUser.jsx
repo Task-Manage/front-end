@@ -55,7 +55,6 @@ export default function TableTaskAdmin(props) {
     };
     const handleChange = (event) => {
         setinput(event.target.value);
-        console.log(event.target.value);
     };
 
     const handleSubmit = (event) => {
@@ -95,7 +94,6 @@ export default function TableTaskAdmin(props) {
         }
         // eslint-disable-next-line
     }, [input]);
-    console.log(taskUser);
     // const rows = [];
     return (
         <Paper className={classes.root}>

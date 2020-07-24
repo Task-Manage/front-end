@@ -45,7 +45,6 @@ export default function ModalEditTaskAdmin(props) {
 
     const handleConfirm = () => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/tasks/editUser/${userId}`;
-        console.log(url);
         const token = JSON.parse(localStorage.getItem('user')).token;
         const options = {
             method: 'PUT',

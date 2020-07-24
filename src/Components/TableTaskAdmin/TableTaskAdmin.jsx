@@ -68,7 +68,6 @@ export default function TableTaskAdmin(props) {
 
     const handleChange = (event) => {
         setinput(event.target.value);
-        console.log(event.target.value);
     };
 
     const handleSubmit = (event) => {
@@ -82,7 +81,6 @@ export default function TableTaskAdmin(props) {
             .then((response) => response.json())
             .then((results) => {
                 setTask(results);
-                console.log(results);
             });
     };
 
@@ -91,7 +89,6 @@ export default function TableTaskAdmin(props) {
             .then((response) => response.json())
             .then((results) => {
                 setTask(results);
-                console.log(results);
             });
     };
     useEffect(() => {
