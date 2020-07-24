@@ -128,7 +128,7 @@ export default function TableEmployeeAdmin(props) {
 
     return (
         <Paper className={classes.root}>
-<!--             {employeeData !== null && (
+            {employeeData !== null && (
                 <Box
                     component="div"
                     style={{
