@@ -52,9 +52,9 @@ export default function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (
-            userData.name !== '' &&
-            userData.email !== '' &&
-            userData.password !== ''
+            userData.name === '' ||
+            userData.email === '' ||
+            userData.password === ||
         ) {
            return alert('WARNING: Complete form to continue');
         }
