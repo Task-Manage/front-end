@@ -15,6 +15,7 @@ import {
 // import DialogContentText from "@material-ui/core/DialogContentText";
 import Add from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -88,7 +89,7 @@ export default function FormDialog() {
         fetch(url, options)
             .then((response) => response.json())
             .then((result) => {
-                alert(result.message);
+                swal('Good job!', 'Add Succes!', 'success');
                 window.location.reload(true);
             })
             .catch((error) => console.error(error));
