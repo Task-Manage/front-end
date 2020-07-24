@@ -57,27 +57,28 @@ export default function SignUp() {
             userData.password === ''
         ) {
             alert('WARNING: Complete form to continue');
-        }
-        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
+        } else {
+            const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        };
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            };
 
-        try {
-            const response = await fetch(url, options);
-            const result = await response.json();
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
 
-            if (result) {
-                alert(result.message);
-                history.push('/');
+                if (result) {
+                    alert(result.message);
+                    history.push('/');
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
         }
     };
 
