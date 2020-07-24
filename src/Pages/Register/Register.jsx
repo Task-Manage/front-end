@@ -52,11 +52,11 @@ export default function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (
-            userData.name === '' ||
-            userData.email === '' ||
-            userData.password === ''
+            userData.name !== '' &&
+            userData.email !== '' &&
+            userData.password !== ''
         ) {
-            alert('WARNING: Complete form to continue');
+           return alert('WARNING: Complete form to continue');
         }
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
