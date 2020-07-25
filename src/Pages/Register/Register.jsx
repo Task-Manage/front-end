@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import swal from 'sweetalert';
+
 import { NavLink, useHistory } from 'react-router-dom';
 import Copyright from '../../Components/Copyright/Copyright';
 
@@ -54,30 +56,32 @@ export default function SignUp() {
         if (
             userData.name === '' ||
             userData.email === '' ||
-            userData.password === ||
+            userData.password === ''
         ) {
-           return alert('WARNING: Complete form to continue');
-        }
-        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
+            swal('Try Again!', 'Complete Form to Continue!', 'warning');
+        } else {
+            const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/users`;
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        };
 
-        try {
-            const response = await fetch(url, options);
-            const result = await response.json();
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            };
 
-            if (result) {
-                alert(result.message);
-                history.push('/');
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+
+                if (result) {
+                    swal('Succes!', 'Continue to Login Form!', 'success');
+                    history.push('/');
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
         }
     };
 
